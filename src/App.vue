@@ -1,16 +1,14 @@
 <template>
-  <TopBar />
-  <HeroSection />
+  <router-view></router-view>
 </template>
 
 <script>
-import TopBar from './components/TopBar.vue';
-import HeroSection from './components/HeroSection.vue';
+
 import { store } from './data/store.js';
 import axios from 'axios';
 
 export default {
-  components: { TopBar, HeroSection },
+
   name: 'App',
   data() {
     return {
