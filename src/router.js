@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AppHome from "../src/pages/AppHome.vue";
 import AdvancedSearch from "../src/pages/AdvancedSearch.vue";
+import DetailDoctor from "../src/pages/DetailDoctor.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: "/search",
       name: "search",
       component: AdvancedSearch,
+    },
+    {
+      path: "/detail-doctor",
+      name: "detail-doctor",
+      component: DetailDoctor,
     },
     /*  {
       path: "/:pathMatch(.*)*",

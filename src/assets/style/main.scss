@@ -2,30 +2,16 @@
 
 @import 'bootstrap/scss/bootstrap';
 
-
-
 $fa-font-path: '../webfonts';
 @import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
 @import '@fortawesome/fontawesome-free/scss/regular.scss';
 @import '@fortawesome/fontawesome-free/scss/brands.scss';
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
-/**
-* Template Name: Medilab
-* Updated: Jan 29 2024 with Bootstrap v5.3.2
-* Template URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
+  background-color: $light-color;
 }
 
 a {
@@ -94,7 +80,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #1977cc;
+  background: $primary-color;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -108,7 +94,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: #298ce5;
+  background: $dark-primary;
   color: #fff;
 }
 
@@ -212,7 +198,7 @@ h6 {
 */
 .appointment-btn {
   margin-left: 25px;
-  background: #1977cc;
+  background: $primary-color;
   color: #fff;
   border-radius: 50px;
   padding: 8px 25px;
@@ -513,7 +499,7 @@ h6 {
   border-radius: 50px;
   transition: 0.5s;
   color: #fff;
-  background: #1977cc;
+  background: $primary-color;
 }
 
 #hero .btn-get-started:hover {
@@ -597,7 +583,7 @@ section {
   display: block;
   width: 40px;
   height: 3px;
-  background: #1977cc;
+  background: $primary-color;
   bottom: 0;
   left: calc(50% - 20px);
 }
@@ -673,7 +659,7 @@ section {
 --------------------------------------------------------------*/
 .why-us .content {
   padding: 30px;
-  background: #1977cc;
+  background: $primary-color;
   border-radius: 4px;
   color: #fff;
 }
@@ -770,7 +756,7 @@ section {
 }
 
 .about .icon-box:hover .icon {
-  background: #1977cc;
+  background: $primary-color;
   border-color: #1977cc;
 }
 
@@ -907,7 +893,7 @@ section {
   left: 50%;
   transform: translateX(-50%);
   font-size: 20px;
-  background: #1977cc;
+  background: $primary-color;
   color: #fff;
   border-radius: 50px;
   display: inline-flex;
@@ -945,7 +931,7 @@ section {
   margin: 0 auto;
   width: 64px;
   height: 64px;
-  background: #1977cc;
+  background: $primary-color;
   border-radius: 5px;
   transition: all 0.3s ease-out 0s;
   display: flex;
@@ -994,7 +980,7 @@ section {
 }
 
 .services .icon-box:hover {
-  background: #1977cc;
+  background: $primary-color;
   border-color: #1977cc;
 }
 
@@ -1100,7 +1086,7 @@ section {
 }
 
 .appointment .php-email-form button[type=submit] {
-  background: #1977cc;
+  background: $primary-color;
   border: 0;
   padding: 10px 35px;
   color: #fff;
@@ -1170,7 +1156,7 @@ section {
 
   .departments .nav-link.active {
     color: #fff;
-    background: #1977cc;
+    background: $primary-color;
   }
 }
 
@@ -1262,7 +1248,7 @@ section {
 }
 
 .doctors .member .social a:hover {
-  background: #1977cc;
+  background: $primary-color;
 }
 
 .doctors .member .social a+a {
@@ -1518,7 +1504,7 @@ section {
 .contact .info .email:hover i,
 .contact .info .address:hover i,
 .contact .info .phone:hover i {
-  background: #1977cc;
+  background: $primary-color;
   color: #fff;
 }
 
@@ -1588,7 +1574,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit] {
-  background: #1977cc;
+  background: $primary-color;
   border: 0;
   padding: 10px 35px;
   color: #fff;
@@ -1729,7 +1715,7 @@ section {
   background: none;
   font-size: 16px;
   padding: 0 20px;
-  background: #1977cc;
+  background: $primary-color;
   color: #fff;
   transition: 0.3s;
   border-radius: 50px;
@@ -1748,7 +1734,7 @@ section {
 #footer .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #1977cc;
+  background: $primary-color;
   color: #fff;
   line-height: 1;
   padding: 8px 0;
