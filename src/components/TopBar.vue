@@ -10,7 +10,7 @@
                             }}</router-link>
                     </li>
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
+                <i class="mx-2 fa-solid fa-bars mobile-nav-toggle"></i>
             </nav>
             <a href="#" class="appointment-btn scrollto"><span class="d-none d-md-inline">ACCEDI</span>
             </a>
