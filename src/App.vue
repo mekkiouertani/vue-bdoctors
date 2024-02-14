@@ -1,4 +1,4 @@
-<template>
+ + ''<template>
   <router-view>
   </router-view>
 </template>
@@ -17,10 +17,17 @@ export default {
     }
   },
   methods: {
-
+    getAllDatas(){
+      axios.get(store.apiUrl + '/accounts').then((res) =>{
+        this.store.allDoctors = this.store.allDoctors.concat(res.data.results);
+        console.log('pippo',this.store.allDoctors);
+        
+      })
+    }
   },
   mounted() {
-
+    this.getAllDatas()
+    
   },
 }
 </script>
