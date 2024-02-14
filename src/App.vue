@@ -23,6 +23,12 @@ export default {
         console.log('pippo',this.store.allDoctors);
         
       })
+      //getting alla specializations
+      axios.get(store.apiUrl + '/specializations').then((res) =>{
+        this.store.allSpecializations = this.store.allSpecializations.concat(res.data.results);
+        console.log('specializations',this.store.allSpecializations);
+        
+      })
     }
   },
   mounted() {

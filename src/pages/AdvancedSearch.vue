@@ -14,9 +14,8 @@
                     <div class="col-md-4 form-group mt-3">
                         <select name="specialization" id="specialization" class="form-select">
                             <option value="">Seleziona Specializzazione</option>
-                            <option value="1">Specializzazione 1</option>
-                            <option value="2">Specializzazione 1</option>
-                            <option value="3">Specializzazione 1</option>
+                            <option v-for="specialization in store.allSpecializations" :value="specialization.id">{{ specialization.name }}</option>
+                            
                         </select>
                         <div class="validate"></div>
                     </div>
@@ -60,11 +59,17 @@
 </template>
 
 <script>
+import {store} from '../data/store.js';
 import TopBar from '@/components/TopBar.vue';
 import CardDoctors from '@/components/partials/CardDoctors.vue';
 export default {
     name: "AdvancedSearch",
-    components: { TopBar, CardDoctors }
+    components: { TopBar, CardDoctors },
+    data(){
+        return {
+            store,
+        }
+    }
 }
 </script>
 
