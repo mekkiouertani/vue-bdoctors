@@ -12,8 +12,8 @@
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>
-            <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span>
-                Appointment</a>
+            <a href="#" class="appointment-btn scrollto"><span class="d-none d-md-inline">ACCEDI</span>
+            </a>
         </div>
     </header>
 </template>
@@ -29,7 +29,7 @@ export default {
                     name: "home",
                 },
                 {
-                    label: "Search",
+                    label: "Cerca il tuo Specialista",
                     name: "search",
                 },
 
