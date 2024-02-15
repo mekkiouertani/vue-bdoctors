@@ -1177,7 +1177,13 @@ section {
 .doctors .member .pic {
   overflow: hidden;
   width: 180px;
+  aspect-ratio: 1/1;
   border-radius: 50%;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .doctors .member .pic img {

@@ -2,8 +2,10 @@ import { reactive } from "vue";
 
 export const store = reactive({
   apiUrl: "http://localhost:8000/api",
+  basePathImage: "http://localhost:8000/",
   allDoctors: [],
   allSpecializations: [],
-  fileredSpecialzations: [],
-  selectedSpecializations: 1,
+  filteredSpecializations: [],
+  selectedSpecializations: "",
+  filteredDoctor: [],
 });

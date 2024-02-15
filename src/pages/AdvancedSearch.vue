@@ -5,17 +5,20 @@
 
             <div class="section-title">
                 <h2>Cerca lo specialista che fa al caso tuo!</h2>
-                <p>Potrai cercare il medico con le competenze che cerchi e con lo recensioni migliori.</p>
+                <p>Potrai cercare il medico con le competenze che cerchi e con le recensioni migliori.</p>
             </div>
 
-            <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+            <form role="form" class="php-email-form" @submit.prevent="filteredSpecializations">
                 <div class="row">
                     <!-- SPECIALIZATIONS -->
                     <div class="col-md-4 form-group mt-3">
-                        <select name="specialization" id="specialization" class="form-select">
+                        <select name="specialization" id="specialization" class="form-select"
+                            v-model="store.selectedSpecializations">
                             <option value="">Seleziona Specializzazione</option>
-                            <option v-for="specialization in store.allSpecializations" :value="specialization.id">{{ specialization.name }}</option>
-                            
+                            <option v-for="specialization in store.allSpecializations" :value="specialization.id"
+                                :key="specialization.id">
+                                {{ specialization.name }}
+                            </option>
                         </select>
                         <div class="validate"></div>
                     </div>
@@ -25,52 +28,79 @@
                             <option value="">Filtra per Valutazione</option>
                             <option value="1">&#x2605;</option>
                             <option value="2">&#x2605; &#x2605;</option>
-                            <option value="3">&#x2605; &#x2605; &#x2605; </option>
-                            <option value="3">&#x2605; &#x2605; &#x2605; &#x2605;</option>
-                            <option value="3">&#x2605; &#x2605; &#x2605; &#x2605; &#x2605; </option>
+                            <option value="3">&#x2605; &#x2605; &#x2605;</option>
+                            <option value="4">&#x2605; &#x2605; &#x2605; &#x2605;</option>
+                            <option value="5">&#x2605; &#x2605; &#x2605; &#x2605; &#x2605;</option>
                         </select>
                         <div class="validate"></div>
                     </div>
                     <!-- REVIEWS -->
                     <div class="col-md-4 form-group mt-3">
-                        <select name="vote" id="vote" class="form-select">
+                        <select name="reviews" id="reviews" class="form-select">
                             <option value="">Filtra per Numero di Recensioni</option>
                             <option value="1">Almeno 1 Recensione</option>
-                            <option value="2">Almeno 3 Recensioni</option>
-                            <option value="3">Almeno 5 Recensioni</option>
-                            <option value="3">Almeno 10 Recensioni</option>
+                            <option value="3">Almeno 3 Recensioni</option>
+                            <option value="5">Almeno 5 Recensioni</option>
+                            <option value="10">Almeno 10 Recensioni</option>
                         </select>
                         <div class="validate"></div>
                     </div>
                 </div>
-
 
                 <div class="mb-3">
                     <div class="loading">Loading</div>
                     <div class="error-message"></div>
                     <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                 </div>
-                <div class="text-center"><button type="submit">Cerca</button></div>
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">Cerca</button>
+                    <button class="btn  btn-success mx-3 rounded-pill py-2 px-4" type="reset" @click="resetSearch">Reset</button>
+                </div>
             </form>
-
         </div>
     </section>
     <CardDoctors />
 </template>
-
+  
 <script>
-import {store} from '../data/store.js';
+import axios from 'axios';
+import { store } from '../data/store.js';
 import TopBar from '@/components/TopBar.vue';
 import CardDoctors from '@/components/partials/CardDoctors.vue';
+
 export default {
     name: "AdvancedSearch",
     components: { TopBar, CardDoctors },
-    data(){
+    data() {
         return {
             store,
         }
-    }
+    },
+    methods: {
+        filteredSpecializations() {
+            if (this.store.selectedSpecializations) {
+                axios.get(`${this.store.apiUrl}/accounts`, { params: { specialization: this.store.selectedSpecializations } })
+                    .then((res) => {
+                        this.store.filteredDoctor = res.data.results;
+                        console.log(`filtered Doctor`, this.store.filteredDoctor);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        },
+        resetSearch() {
+            this.store.selectedSpecializations = "";
+            this.store.filteredDoctor = [];
+        },
+
+    },
+    mounted() {
+    },
 }
 </script>
-
-<style lang="scss" scoped></style>
+  
+<style lang="scss" scoped>
+/* Your styles here */
+</style>
+  
