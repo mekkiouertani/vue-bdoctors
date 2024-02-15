@@ -20,7 +20,7 @@ export default {
     getAllDatas() {
       axios.get(store.apiUrl + '/accounts').then((res) => {
         this.store.allDoctors = this.store.allDoctors.concat(res.data.results);
-        console.log('all doctors', this.store.allDoctors);
+        console.log('all doctors', res.data.results);
       })
 
       //getting alla specializations
