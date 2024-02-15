@@ -24,8 +24,8 @@
                     </div>
                     <!-- VOTE -->
                     <div class="col-md-4 form-group mt-3">
-                        <select name="vote" id="vote" class="form-select">
-                            <option value="">Filtra per Valutazione</option>
+                        <select name="vote" id="vote" class="form-select" v-model="averageVote">
+                            <option value="0">Filtra per Valutazione</option>
                             <option value="1">&#x2605;</option>
                             <option value="2">&#x2605; &#x2605;</option>
                             <option value="3">&#x2605; &#x2605; &#x2605;</option>
@@ -36,12 +36,12 @@
                     </div>
                     <!-- REVIEWS -->
                     <div class="col-md-4 form-group mt-3">
-                        <select name="reviews" id="reviews" class="form-select">
-                            <option value="">Filtra per Numero di Recensioni</option>
+                        <select name="reviews" id="reviews" class="form-select" v-model="selectedReviews">
+                            <option value="0">Filtra per Numero di Recensioni</option>
                             <option value="1">Almeno 1 Recensione</option>
+                            <option value="2">Almeno 2 Recensioni</option>
                             <option value="3">Almeno 3 Recensioni</option>
-                            <option value="5">Almeno 5 Recensioni</option>
-                            <option value="10">Almeno 10 Recensioni</option>
+                            <option value="4">Almeno 4 Recensioni</option>
                         </select>
                         <div class="validate"></div>
                     </div>
@@ -74,10 +74,12 @@ export default {
     data() {
         return {
             store,
+            selectedReviews: 0,
+            averageVote: 0
         }
     },
     methods: {
-        filteredSpecializations() {
+        originalFilteredSpecializations() {
             if (this.store.selectedSpecializations) {
                 axios.get(`${this.store.apiUrl}/accounts`, { params: { specialization: this.store.selectedSpecializations } })
                     .then((res) => {
@@ -89,6 +91,19 @@ export default {
                     });
             }
         },
+        filteredSpecializations() {
+            if (this.store.selectedSpecializations) {
+                axios.get(`${this.store.apiUrl}/accountfilter`, { params: { s: this.store.selectedSpecializations, mar: this.averageVote, mr: this.selectedReviews } })
+                    .then((res) => {
+                        this.store.filteredDoctor = res.data.results;
+                        console.log(`filtered Doctor`, this.store.filteredDoctor);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
+        },
+
         resetSearch() {
             this.store.selectedSpecializations = "";
             this.store.filteredDoctor = [];
