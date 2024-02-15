@@ -6,15 +6,18 @@
             </div>
             <div class="row">
                 <div class="col-lg-4" v-for="item in  this.store.filteredDoctor ">
-                    <div class="member d-flex align-items-start">
-                        <div class="pic"><img :src="`${store.basePathImage}${item.image}`" class="img-fluid" alt="...">
+                    <router-link :to="{ name: 'detail-doctor', params: { id: item.id}}">
+                        <div class="member d-flex align-items-start">
+                            <div class="pic">
+                                <img :src="`${store.basePathImage}${item.image}`" class="img-fluid" alt="...">
+                            </div>
+                            <div class="member-info">
+                                <h4>{{ item.user.name }} {{ item.user.surname }}</h4>
+                                <span>Specializzato in: <strong v-for="specialization in item.specializations"
+                                        :key="specialization.id">{{ specialization.name }}</strong></span>
+                            </div>
                         </div>
-                        <div class="member-info">
-                            <h4>{{ item.user.name }} {{ item.user.surname }}</h4>
-                            <span>Specializzato in: <strong v-for="specialization in item.specializations"
-                                    :key="specialization.id">{{ specialization.name }}</strong></span>
-                        </div>
-                    </div>
+                    </router-link>
                 </div>
             </div>
         </div>

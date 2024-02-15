@@ -17,7 +17,7 @@ const router = createRouter({
       component: AdvancedSearch,
     },
     {
-      path: "/detail-doctor",
+      path: "/detail-doctor/:id",
       name: "detail-doctor",
       component: DetailDoctor,
     },
