@@ -12,7 +12,8 @@
                 </ul>
                 <i class="mx-2 fa-solid fa-bars mobile-nav-toggle"></i>
             </nav>
-            <a href="#" class="appointment-btn scrollto"><span class="d-none d-md-inline">ACCEDI</span>
+            <a href="http://localhost:8000/login" class="appointment-btn scrollto"><span
+                    class="d-none d-md-inline">ACCEDI</span>
             </a>
         </div>
     </header>
