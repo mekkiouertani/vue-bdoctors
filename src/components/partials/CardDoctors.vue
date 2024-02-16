@@ -10,7 +10,10 @@
 
             </div>
             <div class="row">
+
                 <div class="col-lg-4 mt-3" v-for="item in  this.store.filteredDoctor ">
+
+
                     <router-link :to="{ name: 'detail-doctor', params: { id: item.id } }">
                         <div class="member d-flex align-items-start">
                             <div class="pic">
@@ -49,7 +52,7 @@ export default {
     name: "CardDoctors",
     data() {
         return {
-            store
+            store,
         }
     },
     methods: {
