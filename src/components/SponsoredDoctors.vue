@@ -1,92 +1,115 @@
-<template>
-    <section id="doctors" class="doctors">
+
+<template >
+    <section id="card-doctors" class="doctors">
         <div class="container">
-
-            <div class="section-title">
-                <h2>Dottori in Evidenza</h2>
-                <p>Alcuni dei nostri migliori dottori pronti a risolvere tutti i tuoi problemi!</p>
+            <div class="text-start pb-3">
+                <h2 v-if="this.store.call">I medici che rispettano i criteri di ricerca:</h2>
+                <h2 v-if="!this.store.call">I professioni che ti raccomandiamo</h2>
             </div>
 
-            <div class="row">
+            <!-- dottori ricerca -->
 
-                <div class="col-lg-6">
-                    <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="./../assets/images/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
-                        <div class="member-info">
-                            <h4>Walter White</h4>
-                            <span>Chief Medical Officer</span>
-                            <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
-                            <div class="social">
-                                <a href=""><i class="ri-twitter-fill"></i></a>
-                                <a href=""><i class="ri-facebook-fill"></i></a>
-                                <a href=""><i class="ri-instagram-fill"></i></a>
-                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-lg-6 mt-4 mt-lg-0">
-                    <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="./../assets/images/doctors/doctors-2.jpg" class="img-fluid" alt=""></div>
-                        <div class="member-info">
-                            <h4>Sarah Jhonson</h4>
-                            <span>Anesthesiologist</span>
-                            <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
-                            <div class="social">
-                                <a href=""><i class="ri-twitter-fill"></i></a>
-                                <a href=""><i class="ri-facebook-fill"></i></a>
-                                <a href=""><i class="ri-instagram-fill"></i></a>
-                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-lg-6 mt-4">
-                    <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="./../assets/images/doctors/doctors-3.jpg" class="img-fluid" alt=""></div>
-                        <div class="member-info">
-                            <h4>William Anderson</h4>
-                            <span>Cardiology</span>
-                            <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
-                            <div class="social">
-                                <a href=""><i class="ri-twitter-fill"></i></a>
-                                <a href=""><i class="ri-facebook-fill"></i></a>
-                                <a href=""><i class="ri-instagram-fill"></i></a>
-                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- dottori sponsor, home -->
 
-                <div class="col-lg-6 mt-4">
-                    <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="./../assets/images/doctors/doctors-4.jpg" class="img-fluid" alt=""></div>
-                        <div class="member-info">
-                            <h4>Amanda Jepson</h4>
-                            <span>Neurosurgeon</span>
-                            <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
-                            <div class="social">
-                                <a href=""><i class="ri-twitter-fill"></i></a>
-                                <a href=""><i class="ri-facebook-fill"></i></a>
-                                <a href=""><i class="ri-instagram-fill"></i></a>
-                                <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+
+            <div v-if="!this.store.call" class="row">
+
+                <div v-for="item in  this.store.allDoctors " class="col-lg-4 mt-3">
+                    <router-link :to="{ name: 'detail-doctor', params: { id: item.id } }" v-if="item.visible">
+                        <div class="member d-flex align-items-start">
+                            <div class="pic">
+                                <img :src="`${store.basePathImage}${item.image}`" class="img-fluid" alt="...">
                             </div>
+                            <div class="member-info">
+                                <h4>{{ item.user.name }} {{ item.user.surname }}</h4>
+                                <span>Specializzato in: <strong v-for="specialization in item.specializations"
+                                        :key="specialization.id">{{ specialization.name }}</strong></span>
+                                <div class="d-flex flex-row justify-content-start gap-3 align-content-center">
+
+                                    <h6 style="color: green">sponsorizzato</h6>
+
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
+                    </router-link>
                 </div>
 
             </div>
+
+
+            <div class="row" v-if="this.store.call">
+                <div class="col-lg-4 mt-3" v-for="item in  this.store.filteredDoctor ">
+                    <router-link :to="{ name: 'detail-doctor', params: { id: item.id } }">
+                        <div class="member d-flex align-items-start">
+                            <div class="pic">
+                                <img :src="`${store.basePathImage}${item.image}`" class="img-fluid" alt="...">
+                            </div>
+                            <div class="member-info">
+                                <h4>{{ item.user.name }} {{ item.user.surname }}</h4>
+                                <span>Specializzato in: <strong v-for="specialization in item.specializations"
+                                        :key="specialization.id">{{ specialization.name }}</strong></span>
+                                <div class="d-flex flex-row justify-content-start gap-3 align-content-center">
+                                    <div>
+                                        <i v-for="n in 5" :key="n" class="fa-star"
+                                            :class="(n <= getVoted(item.average_rating)) ? 'fa-solid' : 'fa-regular'"
+                                            style="color: #FFD43B;">
+                                        </i>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-start align-content-center gap-2">
+                                        <i class="fa-solid fa-pen"></i>
+                                        <span>{{ item.total_reviews }}</span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </router-link>
+                </div>
+            </div>
+
 
         </div>
     </section>
 </template>
 
 <script>
+import { store } from '../data/store.js';
 export default {
-    name: "SponsoredDoctors",
+    name: "CardDoctors",
+    data() {
+        return {
+            store
+        }
+    },
+    methods: {
+        getVoted(vote) {
+            return Math.floor(vote)
+        }
+    }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.member {
+    height: 100%;
+    margin-top: 3rem;
+}
+
+.pic {
+    width: 150px !important;
+    height: 150px !important;
+    overflow: hidden;
+
+    img {
+        width: 100% !important;
+        height: 100% !important;
+        aspect-ratio: 1/1;
+
+    }
+}
+</style>
+ 

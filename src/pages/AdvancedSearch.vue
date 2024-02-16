@@ -23,7 +23,7 @@
                         <div class="validate"></div>
                     </div>
                     <!-- VOTE -->
-                    <div class="col-md-4 form-group mt-3">
+                    <div class="col-md-4 form-group mt-3" v-if="store.selectedSpecializations">
                         <select name="vote" id="vote" class="form-select" v-model="averageVote">
                             <option value="0">Filtra per Valutazione</option>
                             <option value="1">&#x2605;</option>
@@ -35,13 +35,10 @@
                         <div class="validate"></div>
                     </div>
                     <!-- REVIEWS -->
-                    <div class="col-md-4 form-group mt-3">
-                        <select name="reviews" id="reviews" class="form-select" v-model="selectedReviews">
-                            <option value="0">Filtra per Numero di Recensioni</option>
-                            <option value="1">Almeno 1 Recensione</option>
-                            <option value="2">Almeno 2 Recensioni</option>
-                            <option value="3">Almeno 3 Recensioni</option>
-                            <option value="4">Almeno 4 Recensioni</option>
+                    <div class="col-md-4 form-group mt-3" v-if="store.selectedSpecializations">
+                        <select name="reviews" id="reviews" class="form-select" v-model="total_reviews">
+                            <option value="DESC" selected>Maggiori recensioni</option>
+                            <option value="ASC">Minori Recensioni</option>
                         </select>
                         <div class="validate"></div>
                     </div>
@@ -52,9 +49,12 @@
                     <div class="error-message"></div>
                     <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                 </div>
-                <div class="text-center">
-                    <button class="btn btn-primary" type="submit">Cerca</button>
-                    <button class="btn  btn-success mx-3 rounded-pill py-2 px-4" type="reset" @click="resetSearch">Reset</button>
+                <div class="d-flex "
+                    :class="store.selectedSpecializations ? 'justify-content-center' : 'justify-content-start'">
+                    <button class="btn btn-primary" :class="store.selectedSpecializations ? ' ' : ' disabled'"
+                        type="submit">Cerca</button>
+                    <button v-if="store.selectedSpecializations" class="btn  btn-success mx-3 rounded-pill py-2 px-4"
+                        type="reset" @click="resetSearch">Reset</button>
                 </div>
             </form>
         </div>
@@ -74,7 +74,7 @@ export default {
     data() {
         return {
             store,
-            selectedReviews: 0,
+            total_reviews: 'DESC',
             averageVote: 0
         }
     },
@@ -93,7 +93,7 @@ export default {
         },
         filteredSpecializations() {
             if (this.store.selectedSpecializations) {
-                axios.get(`${this.store.apiUrl}/accountfilter`, { params: { s: this.store.selectedSpecializations, mar: this.averageVote, mr: this.selectedReviews } })
+                axios.get(`${this.store.apiUrl}/accountfilter`, { params: { s: this.store.selectedSpecializations, mar: this.averageVote, order: this.total_reviews } })
                     .then((res) => {
                         this.store.filteredDoctor = res.data.results;
                         console.log(`filtered Doctor`, this.store.filteredDoctor);
@@ -102,11 +102,14 @@ export default {
                         console.log(err);
                     });
             }
+            this.store.call = true;
         },
 
         resetSearch() {
             this.store.selectedSpecializations = "";
             this.store.filteredDoctor = [];
+
+            this.store.call = false;
         },
 
     },
