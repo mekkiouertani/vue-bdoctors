@@ -6,7 +6,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-4" v-for="item in  this.store.filteredDoctor ">
-                    <router-link :to="{ name: 'detail-doctor', params: { id: item.id}}">
+                    <router-link :to="{ name: 'detail-doctor', params: { id: item.id } }">
                         <div class="member d-flex align-items-start">
                             <div class="pic">
                                 <img :src="`${store.basePathImage}${item.image}`" class="img-fluid" alt="...">
@@ -30,7 +30,7 @@ export default {
     name: "CardDoctors",
     data() {
         return {
-            store
+            store,
         }
     }
 }
