@@ -2,8 +2,12 @@
 <template>
     <section id="card-doctors" class="doctors">
         <div class="container">
+
+
             <div class="text-start pb-3">
-                <h2>I medici che rispettano i criteri di ricerca:</h2>
+                <h2 v-if="store.filteredDoctor.length > 0">I medici che rispettano i criteri di ricerca:</h2>
+                <h2 v-if="store.filteredDoctor.length == 0 && store.call">Nessun medico trovato</h2>
+
             </div>
             <div class="row">
                 <div class="col-lg-4 mt-3" v-for="item in  this.store.filteredDoctor ">
