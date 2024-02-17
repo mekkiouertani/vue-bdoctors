@@ -2,19 +2,19 @@
     <header id="header" class="fixed">
         <div class="container d-flex align-items-center">
             <h1 class="logo me-auto">BDoctors</h1>
-            <nav id="navbar" class="navbar order-last order-lg-0">
+            <nav id="navbar" class="navbar order-last order-lg-0" :class="{ 'navbar-mobile': isNavbarVisible }">
                 <ul>
-                    <li class="nav-item" v-for="item in menu">
+                    <li class="nav-item" v-for="item in menu" :key="item.name">
                         <router-link :to="{ name: item.name }" class="nav-link" active-class="active">
-                            {{ item.label
-                            }}</router-link>
+                            {{ item.label }}
+                        </router-link>
                     </li>
                 </ul>
-                <i class="mx-2 fa-solid fa-bars mobile-nav-toggle"></i>
+                <i class="d-block fs-3 d-lg-none mx-2 fa-solid fa-bars bi" :class="isNavbarVisible ? 'bi-x' : 'bi-list'"
+                    @click="toggleNavbar"></i>
             </nav>
-            <a href="http://localhost:8000/login" class="appointment-btn scrollto"><span
-                    class="d-none d-md-inline">ACCEDI</span>
-            </a>
+            <a href="http://localhost:8000/login" class="d-block appointment-btn scrollto"><span
+                    class="d-md-inline">ACCEDI</span></a>
         </div>
     </header>
 </template>
@@ -24,6 +24,7 @@ export default {
     name: "TopBar",
     data() {
         return {
+            isNavbarVisible: false,
             menu: [
                 {
                     label: "Home",
@@ -36,6 +37,11 @@ export default {
 
             ],
         }
+    },
+    methods: {
+        toggleNavbar() {
+            this.isNavbarVisible = !this.isNavbarVisible; // Cambia lo stato di visibilità
+        },
     },
 }
 </script>
