@@ -1,5 +1,6 @@
 <template>
   <div class="detail-doctor">
+
     <TopBar />
     <header>
       <img v-if="doctor.image" :src="`${store.basePathImage}${doctor.image}`" class="doctor-image"
@@ -46,15 +47,16 @@
           </div>
         </div>
       </div>
+
       <hr>
+
       <!-- MESSAGGI E RECENSIONI -->
       <!-- parte sinistra -->
       <div class="row gy-4 mt-4 ">
         <div class="col-md-3 border-end">
           <ul class="nav nav-tabs flex-column">
             <li class="nav-item">
-              <a class="nav-link  mybtn" data-bs-toggle="tab" href="#message-1">Prenota un
-                appuntamento</a>
+              <a class="nav-link mybtn active" data-bs-toggle="tab" href="#message-1">Prenota un appuntamento</a>
             </li>
             <li class="nav-item">
               <a class="nav-link mybtn" data-bs-toggle="tab" href="#reviews-2">Scrivi una recensione</a>
@@ -64,7 +66,6 @@
         <!-- parte destra -->
         <div class="col-md-9">
           <div class="tab-content">
-
             <!-- form messaggi -->
             <div class="tab-pane active show" id="message-1">
               <h2>Messaggi</h2>
@@ -77,16 +78,14 @@
               <FormReview />
             </div>
           </div>
-
-
         </div>
-
-
       </div>
 
 
 
     </div>
+
+
   </div>
 </template>
 
@@ -101,12 +100,21 @@ export default {
   components: { TopBar, FormAppointments, FormReview },
   data() {
     return {
+      activeApp: true,
       store,
       doctor: [],
 
     }
   },
   methods: {
+    changeActiveApp(active) {
+      console.log('cambio');
+      if (active) {
+        this.activeApp = true
+      } else {
+        this.activeApp = false
+      }
+    },
     getDetailDoctor() {
       axios.get(`${this.store.apiUrl}/accounts/${this.$route.params.id}`).then((res) => {
         console.log(`detail-doctor`, res.data);

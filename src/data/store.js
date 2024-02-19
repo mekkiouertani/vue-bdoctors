@@ -9,5 +9,6 @@ export const store = reactive({
   filteredSpecializations: [],
   selectedSpecializations: "",
   filteredDoctor: [],
-  call: false
+  call: false,
+
 });
