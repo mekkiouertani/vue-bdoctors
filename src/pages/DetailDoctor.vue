@@ -7,32 +7,24 @@
   <div class="container">
     <div class="row">
       <!-- Colonna Informazioni -->
-      <div class="col-12 col-md-4 pt-3 pb-3">
+      <div class="col-12 col-md-6 pt-3 pb-3 ">
         <div class="card">
-          <div class="card-body m-3">
+          <div class="card-body m-3 ">
             <h3 class="title text-center">INFORMAZIONI</h3>
-            <p class="p-3"><strong>Nome:</strong> {{ doctor.user.name }}</p>
-            <p class="p-3"><strong>Cognome:</strong> {{ doctor.user.surname }}</p>
+            <p class="p-2"><strong>Nome:</strong> {{ doctor.user.name }}</p>
+            <p class="p-2"><strong>Cognome:</strong> {{ doctor.user.surname }}</p>
           </div>
-        </div>
-      </div>
-      <!-- Colonna Specializzazione -->
-      <div class="col-12 col-md-4 pt-3 pb-3">
-        <div class="card">
+          <!-- Colonna Specializzazione -->
           <div class="card-body m-3">
             <h3 class="title text-center">SPECIALIZZAZIONE</h3>
-            <div class="p-3 m-3">
-              Specializzazione:
+            <div class="p-1 d-flex ">
+              <strong>Specializzazione:</strong>
               <ul>
                 <li v-for="specialization in doctor.specializations">{{ specialization.name }}</li>
               </ul>
             </div>
           </div>
-        </div>
-      </div>
-      <!-- Colonna Contatti -->
-      <div class="col-12 col-md-4 pt-3 pb-3">
-        <div class="card">
+          <!-- Colonna Contatti -->
           <div class="card-body m-3">
             <h3 class="title text-center">CONTATTI</h3>
             <p class="p-1"><strong>Indirizzo:</strong> {{ doctor.address }}</p>
@@ -41,21 +33,32 @@
           </div>
         </div>
       </div>
+          <!-- Colonna CV -->
+      <div class="col-12 col-md-6 pt-3 pb-3">
+          <div class="card h-100  " >
+            <div class="card-body ">
+              <h3 class="title text-center">Curriculum Vitae</h3>
+              <embed class="w-100  " :src="`${store.basePathCV}${doctor.cv}`" type="application/pdf" style="height: 680px;" >
+            </div>
+          </div>
+      </div>
     </div>
   </div>
 </div>
 
   <FormAppointments />
+  <FormReview />
 </template>
 
 <script>
 import { store } from '@/data/store';
 import TopBar from '@/components/TopBar.vue';
 import FormAppointments from './../components/partials/FormAppointments.vue';
+import FormReview from './../components/partials/FormReview.vue';
 import axios from 'axios';
 export default {
   name: "DetailDoctor",
-  components: { TopBar, FormAppointments },
+  components: { TopBar, FormAppointments,FormReview },
   data() {
     return {
       store,
@@ -70,7 +73,8 @@ export default {
         this.doctor = res.data;
         console.log('doctor aaaa', this.doctor);
       })
-    }
+    },
+    
   },
   created() {
     this.getDetailDoctor();
