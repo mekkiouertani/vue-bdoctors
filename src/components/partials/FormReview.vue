@@ -68,6 +68,11 @@
                     <button type="submit">Invia</button>
                 </div>
             </form>
+            <div v-if="formSubmittedSuccessfully" class="alert alert-success alert-dismissible fade show mt-1" role="alert">
+                La tua recensione è stata inviata con successo!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                
+            </div>
 
         </div>
     </section>
@@ -87,6 +92,7 @@ export default {
             title: '',
             message: '',
             nameM: '',
+            formSubmittedSuccessfully: false
 
 
         }
@@ -129,24 +135,27 @@ export default {
             console.log('chiamata');
             if (this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim()) {
                 axios.post(`${this.store.apiUrl}/reviews`, {
-                    account_id: this.$route.params.id,
-                    content: this.message,
-                    title: this.title,
-                    name: this.nameM,
-                    email: this.email
-                })
-                    .then(() => {
-                        this.email = '';
-                        this.nameM = '';
-                        this.title = ''; // Corretto da title.content
-                        this.message = '';
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-                    .finally(() => {
-                        console.log('chiamata effettuata');
-                    });
+                account_id: this.$route.params.id,
+                content: this.message,
+                title: this.title,
+                name: this.nameM,
+                email: this.email
+            })
+            .then(() => {
+                // Operazioni da eseguire dopo l'invio riuscito
+                
+                this.email = '';
+                this.nameM = '';
+                this.title = ''; // Corretto da title.content
+                this.message = '';
+                this.formSubmittedSuccessfully = true;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                console.log('chiamata effettuata');
+            });
             } else {
                 console.log('Uno o più campi sono vuoti.');
             }
@@ -198,3 +207,4 @@ button {
     border-radius: 50px;
 }
 </style>
+
