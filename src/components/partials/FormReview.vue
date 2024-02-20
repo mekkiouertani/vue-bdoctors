@@ -77,12 +77,24 @@
                 </span>
                 <span @click="isVisible = false" class="cp"> X </span>
             </div>
-            <div v-if="isVisibleSuccess" class="alert alert-success mt-3 d-flex justify-content-between"><span>
-                    Recensione inviata
+            <div v-if="isVisibleSuccessText && isVisibleSuccessStar"
+                class="alert alert-success mt-3 d-flex justify-content-between"><span>
+                    Recensione completa inviata
                 </span>
-                <span @click="isVisibleSuccess = false" class="cp"> X </span>
+                <span @click="isVisibleSuccessText = false; isVisibleSuccessStar = false" class=" cp"> X </span>
             </div>
 
+
+            <div v-else-if="isVisibleSuccessText" class="alert alert-success mt-3 d-flex justify-content-between"><span>
+                    Recensione inviata <i class="fa-solid fa-pen"></i>
+                </span>
+                <span @click="isVisibleSuccessText = false" class="cp"> X </span>
+            </div>
+            <div v-else-if="isVisibleSuccessStar" class="alert alert-success mt-3 d-flex justify-content-between"><span>
+                    Valutazione inviata <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                </span>
+                <span @click="isVisibleSuccessStar = false" class="cp"> X </span>
+            </div>
         </div>
     </section>
 </template>
@@ -103,7 +115,9 @@ export default {
             nameM: '',
 
             isVisible: false,
-            isVisibleSuccess: false,
+            isVisibleSuccessText: false,
+            isVisibleSuccessStar: false,
+
 
 
 
@@ -144,6 +158,8 @@ export default {
 
         // chiamata messaggio
         postReview() {
+            this.isVisibleSuccessText = false;
+            this.isVisibleSuccessStar = false;
             // Verifica se i campi della recensione sono stati compilati
             const isReviewFilled = this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim();
 
@@ -168,8 +184,8 @@ export default {
                         console.log(err);
                     })
                     .finally(() => {
-                        console.log('Chiamata recensione effettuata');
-                        this.isVisibleSuccess = true;
+                        console.log('RECENSIONE');
+                        this.isVisibleSuccessText = true;
                     });
 
             }
@@ -178,7 +194,7 @@ export default {
             if (this.currentRating !== 0) {
                 axios.post(`${this.store.apiUrl}/votes`, { account_id: this.$route.params.id, rating_id: this.currentRating })
                     .then((res) => {
-                        console.log('Chiamata valutazione effettuata' + res);
+                        // console.log('Chiamata valutazione effettuata' + res);
                         // Resetta la valutazione dopo l'invio
                         this.currentRating = 0;
                         this.resetStars();
@@ -187,8 +203,8 @@ export default {
                         console.log(err);
                     })
                     .finally(() => {
-                        console.log('Chiamata valutazione effettuata');
-                        this.isVisibleSuccess = true;
+                        console.log('STELLE');
+                        this.isVisibleSuccessStar = true;
                     });
             } else if (!isReviewFilled) {
                 this.isVisible = true;
