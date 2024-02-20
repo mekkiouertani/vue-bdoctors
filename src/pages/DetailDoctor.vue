@@ -102,7 +102,13 @@ export default {
     return {
       activeApp: true,
       store,
-      doctor: [],
+      doctor: {
+        user: {
+          name: '',
+          surname: '',
+          email: '',
+        }
+      },
 
     }
   },

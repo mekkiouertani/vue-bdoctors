@@ -55,7 +55,18 @@
                 </div>
                 <div class="text-center"><button type="submit">Prendi un appuntamento!</button></div>
             </form>
-
+            <!-- ALERT -->
+            <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between"><span>
+                    Inserisci tutti i campi testuali del form prima di
+                    inviarlo
+                </span>
+                <span @click="isVisible = false" class="cp"> X </span>
+            </div>
+            <div v-if="isVisibleSuccess" class="alert alert-success mt-3 d-flex justify-content-between"><span>
+                    Recensione inviata
+                </span>
+                <span @click="isVisibleSuccess = false" class="cp"> X </span>
+            </div>
         </div>
     </section>
 </template>
@@ -71,7 +82,9 @@ export default {
             email: '',
             nameM: '',
             title: '',
-            message: ''
+            message: '',
+            isVisible: false,
+            isVisibleSuccess: false,
         }
     },
     methods: {
@@ -89,17 +102,20 @@ export default {
                     .then(() => {
                         this.email = '';
                         this.nameM = '';
-                        this.title = ''; // Corretto da title.content
+                        this.title = '';
                         this.message = '';
                     })
                     .catch((err) => {
                         console.log(err);
+
                     })
                     .finally(() => {
                         console.log('chiamata effettuata');
+                        this.isVisibleSuccess = true;
                     });
             } else {
                 console.log('Uno o più campi sono vuoti.');
+                this.isVisible = true;
             }
         }
         // mounted() {
