@@ -81,6 +81,13 @@ export default {
             averageVote: 0
         }
     },
+    watch: {
+        'store.selectedSpecializations'(newVal, oldVal) {
+            if (newVal) {
+                this.filteredSpecializations();
+            }
+        }
+    },
     methods: {
         originalFilteredSpecializations() {
             if (this.store.selectedSpecializations) {
@@ -117,6 +124,9 @@ export default {
 
     },
     mounted() {
+        if (this.store.selectedSpecializations) {
+            this.filteredSpecializations();
+        }
     },
 }
 </script>
