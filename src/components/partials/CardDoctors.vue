@@ -3,7 +3,7 @@
     <section id="card-doctors" class="doctors">
         <div class="container">
             <div class="text-start pb-3">
-                <h2 v-if="store.filteredDoctor.length > 0">I medici che rispettano i criteri di ricerca:</h2>
+                <h2 v-if="store.filteredDoctor.length > 0">Medici trovati: {{ this.store.filteredDoctor.length }}</h2>
                 <h2 v-if="store.filteredDoctor.length == 0 && store.call">Nessun medico trovato</h2>
 
             </div>
