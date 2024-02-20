@@ -4,7 +4,9 @@
 
             <div class="section-title">
                 <h2>Recensione e valutazione</h2>
-                <p>Lascia una recensione e una valutazione. </p>
+                <p>Scrivi una recensione <i class="fa-solid fa-pen"></i> o lascia una valutazione <i
+                        class="fa-solid fa-star" style="color: #FFD43B;"></i> <br> o inseriscile entrambe compilando tutti i
+                    campi del form. </p>
             </div>
 
             <form method="post" role="form" class="php-email-form" @submit.prevent="postReview()">
@@ -13,15 +15,15 @@
 
                 <!-- NOME -->
                 <div class="row">
-                    <div class="col-12 col-md-6 form-group" required>
+                    <div class="col-12 col-md-6 form-group">
                         <input type="text" name="name" class="form-control" id="name" placeholder="Nome*"
-                            data-rule="minlen:4" data-msg="Please enter at least 4 chars" required v-model="nameM">
+                            data-rule="minlen:4" data-msg="Please enter at least 4 chars" v-model="nameM">
                         <div class="validate"></div>
                     </div>
                     <!-- EMAIL -->
-                    <div class="col-12 col-md-6 form-group mt-3 mt-md-0" required>
+                    <div class="col-12 col-md-6 form-group mt-3 mt-md-0">
                         <input type="email" class="form-control" name="email" id="email" placeholder="Email*"
-                            data-rule="email" data-msg="Please enter a valid email" required v-model="email">
+                            data-rule="email" data-msg="Please enter a valid email" v-model="email">
                         <div class="validate"></div>
                     </div>
 
@@ -30,7 +32,7 @@
                 <div class="row mt-3">
                     <div class="col-12">
                         <input type="text" class="form-control" name="title" id="title"
-                            placeholder="Titolo della recensione*" required v-model="title">
+                            placeholder="Titolo della recensione*" v-model="title">
                         <div class="validate"></div>
                     </div>
 
@@ -41,13 +43,13 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="form-group mt-3">
-                            <textarea class="form-control" name="message" rows="5" placeholder="Recensione*" required
+                            <textarea class="form-control" name="message" rows="5" placeholder="Recensione*"
                                 v-model="message"></textarea>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
-                        <div class="form-group mt-3" required>
-                            <label>Valutazione*:</label>
+                        <div class="form-group mt-3">
+                            <label>Valutazione:</label>
                             <div id="rating" class="star-rating">
                                 <span class="star" data-value="1">&#9733;</span>
                                 <span class="star" data-value="2">&#9733;</span>
@@ -68,10 +70,17 @@
                     <button type="submit">Invia</button>
                 </div>
             </form>
-            <div v-if="formSubmittedSuccessfully" class="alert alert-success alert-dismissible fade show mt-1" role="alert">
-                La tua recensione è stata inviata con successo!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                
+
+            <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between"><span>
+                    Inserisci tutti i campi testuali del form prima di
+                    inviarlo
+                </span>
+                <span @click="isVisible = false" class="cp"> X </span>
+            </div>
+            <div v-if="isVisibleSuccess" class="alert alert-success mt-3 d-flex justify-content-between"><span>
+                    Recensione inviata
+                </span>
+                <span @click="isVisibleSuccess = false" class="cp"> X </span>
             </div>
 
         </div>
@@ -92,7 +101,10 @@ export default {
             title: '',
             message: '',
             nameM: '',
-            formSubmittedSuccessfully: false
+
+            isVisible: false,
+            isVisibleSuccess: false,
+
 
 
         }
@@ -132,51 +144,58 @@ export default {
 
         // chiamata messaggio
         postReview() {
-            console.log('chiamata');
-            if (this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim()) {
+            // Verifica se i campi della recensione sono stati compilati
+            const isReviewFilled = this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim();
+
+            // Se i campi della recensione sono compilati, effettua la chiamata per inviare la recensione
+            if (isReviewFilled) {
                 axios.post(`${this.store.apiUrl}/reviews`, {
-                account_id: this.$route.params.id,
-                content: this.message,
-                title: this.title,
-                name: this.nameM,
-                email: this.email
-            })
-            .then(() => {
-                // Operazioni da eseguire dopo l'invio riuscito
-                
-                this.email = '';
-                this.nameM = '';
-                this.title = ''; // Corretto da title.content
-                this.message = '';
-                this.formSubmittedSuccessfully = true;
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                console.log('chiamata effettuata');
-            });
-            } else {
-                console.log('Uno o più campi sono vuoti.');
-            }
 
-
-            //chiamata stelle
-            if (this.currentRating !== 0) {
-                axios.post(`${this.store.apiUrl}/votes`, { account_id: this.$route.params.id, rating_id: this.currentRating })
-                    .then((res) => {
-                        console.log('chaimata effettuata' + res)
-                        this.currentRating = 0
-                        this.highlightStars(0);
+                    account_id: this.$route.params.id,
+                    content: this.message,
+                    title: this.title,
+                    name: this.nameM,
+                    email: this.email
+                })
+                    .then(() => {
+                        // Pulisci i campi dopo l'invio
+                        this.email = '';
+                        this.nameM = '';
+                        this.title = '';
+                        this.message = '';
                     })
                     .catch((err) => {
                         console.log(err);
                     })
                     .finally(() => {
-                        console.log('chiamata effettuata');
+                        console.log('Chiamata recensione effettuata');
+                        this.isVisibleSuccess = true;
                     });
+
+            }
+
+            // Verifica se è stata selezionata una valutazione
+            if (this.currentRating !== 0) {
+                axios.post(`${this.store.apiUrl}/votes`, { account_id: this.$route.params.id, rating_id: this.currentRating })
+                    .then((res) => {
+                        console.log('Chiamata valutazione effettuata' + res);
+                        // Resetta la valutazione dopo l'invio
+                        this.currentRating = 0;
+                        this.resetStars();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                    .finally(() => {
+                        console.log('Chiamata valutazione effettuata');
+                        this.isVisibleSuccess = true;
+                    });
+            } else if (!isReviewFilled) {
+                this.isVisible = true;
+                console.log('Uno o più campi sono vuoti o non è stata selezionata alcuna valutazione.');
             }
         }
+
 
 
 

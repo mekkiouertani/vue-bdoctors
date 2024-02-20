@@ -55,11 +55,19 @@
                 </div>
                 <div class="text-center"><button type="submit">Prendi un appuntamento!</button></div>
             </form>
-            <div v-if="showSuccessMessage" class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                La tua prenotazione è andata a buon fine. Grazie!
-                <button type="button" class="btn-close" @click="showSuccessMessage = false" aria-label="Close"></button>
-            </div>
 
+            <!-- ALERT -->
+            <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between"><span>
+                    Inserisci tutti i campi testuali del form prima di
+                    inviarlo
+                </span>
+                <span @click="isVisible = false" class="cp"> X </span>
+            </div>
+            <div v-if="isVisibleSuccess" class="alert alert-success mt-3 d-flex justify-content-between"><span>
+                    Recensione inviata
+                </span>
+                <span @click="isVisibleSuccess = false" class="cp"> X </span>
+            </div>
 
         </div>
     </section>
@@ -77,36 +85,44 @@ export default {
             nameM: '',
             title: '',
             message: '',
-            showSuccessMessage: false
+
+            isVisible: false,
+            isVisibleSuccess: false,
+
         }
     },
     methods: {
 
         postMex() {
-        console.log('chiamata');
-        if (this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim()) {
-            axios.post(`${this.store.apiUrl}/messages`, {
-                account_id: this.$route.params.id,
-                content: this.message,
-                title: this.title,
-                name: this.nameM,
-                email: this.email
-            })
-            .then(() => {
-                this.email = '';
-                this.nameM = '';
-                this.title = ''; // Corretto da title.content
-                this.message = '';
-                this.showSuccessMessage = true; // Mostra il messaggio di successo
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                console.log('chiamata effettuata');
-            });
-        } else {
-            console.log('Uno o più campi sono vuoti.');
+
+            console.log('chiamata');
+            if (this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim()) {
+                axios.post(`${this.store.apiUrl}/messages`, {
+                    account_id: this.$route.params.id,
+                    content: this.message,
+                    title: this.title,
+                    name: this.nameM,
+                    email: this.email
+                })
+                    .then(() => {
+                        this.email = '';
+                        this.nameM = '';
+                        this.title = '';
+                        this.message = '';
+                    })
+                    .catch((err) => {
+                        console.log(err);
+
+                    })
+                    .finally(() => {
+                        console.log('chiamata effettuata');
+                        this.isVisibleSuccess = true;
+                    });
+            } else {
+                console.log('Uno o più campi sono vuoti.');
+                this.isVisible = true;
+            }
+
         }
     }
         // mounted() {

@@ -3,7 +3,6 @@
     <section id="card-doctors" class="doctors">
         <div class="container">
             <div class="text-start pb-3">
-                <h2 v-if="this.store.call">Medici trovati: {{ this.store.filteredDoctor.length }}</h2>
                 <h2 v-if="!this.store.call">I professioni che ti raccomandiamo</h2>
             </div>
 
@@ -13,8 +12,8 @@
 
             <!-- dottori sponsor, home -->
 
-
-            <div v-if="!this.store.call" class="row">
+            <!-- v-for per sponsorizzare i medici -->
+            <!-- <div v-if="!this.store.call" class="row">
 
                 <div v-for="item in  this.store.allDoctors " class="col-lg-4 mt-3">
                     <router-link :to="{ name: 'detail-doctor', params: { id: item.id } }" v-if="item.visible">
@@ -41,7 +40,7 @@
                     </router-link>
                 </div>
 
-            </div>
+            </div> -->
 
 
             <div class="row" v-if="this.store.call">

@@ -20,7 +20,10 @@
                         </div>
 
                         <div class="text-center">
-                            <button class="btn btn-primary" type="submit">Cerca il tuo medico</button>
+                            <button class="btn btn-primary" type="submit">
+                                <router-link :to="{ name: 'search' }" class="nav-link" active-class="active">
+                                    Cerca il tuo medico
+                                </router-link></button>
 
                         </div>
 
