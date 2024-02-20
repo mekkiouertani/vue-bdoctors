@@ -12,7 +12,8 @@
                 <div class="row">
                     <!-- SPECIALIZATIONS -->
                     <div class="col-md-4 form-group mt-3">
-                        <select name="specialization" id="specialization" class="form-select"
+                        <label for="specialization pb-2">Filtra per specializzazione</label>
+                        <select name="specialization" id="specialization" class="form-select mt-2"
                             v-model="store.selectedSpecializations">
                             <option value="">Seleziona Specializzazione</option>
                             <option v-for="specialization in store.allSpecializations" :value="specialization.id"
@@ -24,7 +25,8 @@
                     </div>
                     <!-- VOTE -->
                     <div class="col-md-4 form-group mt-3" v-if="store.selectedSpecializations">
-                        <select name="vote" id="vote" class="form-select" v-model="averageVote">
+                        <label for="vote">Filtra per voto</label>
+                        <select name="vote" id="vote" class="form-select mt-2" v-model="averageVote">
                             <option value="0">Filtra per Valutazione</option>
                             <option value="1">&#x2605;</option>
                             <option value="2">&#x2605; &#x2605;</option>
@@ -36,7 +38,8 @@
                     </div>
                     <!-- REVIEWS -->
                     <div class="col-md-4 form-group mt-3" v-if="store.selectedSpecializations">
-                        <select name="reviews" id="reviews" class="form-select" v-model="total_reviews">
+                        <label for="reviews">Ordina per N. di recensioni</label>
+                        <select name="reviews" id="reviews" class="form-select mt-2" v-model="total_reviews">
                             <option value="DESC" selected>Maggiori recensioni</option>
                             <option value="ASC">Minori Recensioni</option>
                         </select>
