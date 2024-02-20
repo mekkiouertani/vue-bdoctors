@@ -55,6 +55,7 @@
                 </div>
                 <div class="text-center"><button type="submit">Prendi un appuntamento!</button></div>
             </form>
+
             <!-- ALERT -->
             <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between"><span>
                     Inserisci tutti i campi testuali del form prima di
@@ -67,6 +68,7 @@
                 </span>
                 <span @click="isVisibleSuccess = false" class="cp"> X </span>
             </div>
+
         </div>
     </section>
 </template>
@@ -83,13 +85,16 @@ export default {
             nameM: '',
             title: '',
             message: '',
+
             isVisible: false,
             isVisibleSuccess: false,
+
         }
     },
     methods: {
 
         postMex() {
+
             console.log('chiamata');
             if (this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim()) {
                 axios.post(`${this.store.apiUrl}/messages`, {
@@ -117,7 +122,9 @@ export default {
                 console.log('Uno o più campi sono vuoti.');
                 this.isVisible = true;
             }
+
         }
+    }
         // mounted() {
         //     this.postMex();
         // }

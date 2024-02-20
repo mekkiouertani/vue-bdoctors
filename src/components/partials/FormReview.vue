@@ -70,6 +70,7 @@
                     <button type="submit">Invia</button>
                 </div>
             </form>
+
             <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between"><span>
                     Inserisci tutti i campi testuali del form prima di
                     inviarlo
@@ -81,6 +82,7 @@
                 </span>
                 <span @click="isVisibleSuccess = false" class="cp"> X </span>
             </div>
+
         </div>
     </section>
 </template>
@@ -99,8 +101,10 @@ export default {
             title: '',
             message: '',
             nameM: '',
+
             isVisible: false,
             isVisibleSuccess: false,
+
 
 
         }
@@ -146,6 +150,7 @@ export default {
             // Se i campi della recensione sono compilati, effettua la chiamata per inviare la recensione
             if (isReviewFilled) {
                 axios.post(`${this.store.apiUrl}/reviews`, {
+
                     account_id: this.$route.params.id,
                     content: this.message,
                     title: this.title,
@@ -166,6 +171,7 @@ export default {
                         console.log('Chiamata recensione effettuata');
                         this.isVisibleSuccess = true;
                     });
+
             }
 
             // Verifica se è stata selezionata una valutazione
@@ -220,3 +226,4 @@ button {
     border-radius: 50px;
 }
 </style>
+
