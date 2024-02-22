@@ -4,7 +4,7 @@
             <h1 class="logo me-auto">BDoctors</h1>
             <nav id="navbar" class="navbar order-last order-lg-0" :class="{ 'navbar-mobile': isNavbarVisible }">
                 <ul>
-                    <li class="nav-item" v-for="item in menu" :key="item.name">
+                    <li class="nav-item" v-for="item in menu" :key="item.name" @click="store.call = false; store.selectedSpecializations = ''">
                         <router-link :to="{ name: item.name }" class="nav-link" active-class="active">
                             {{ item.label }}
                         </router-link>
@@ -20,10 +20,12 @@
 </template>
 
 <script>
+import {store} from '../data/store.js';
 export default {
     name: "TopBar",
     data() {
         return {
+            store,
             isNavbarVisible: false,
             menu: [
                 {
