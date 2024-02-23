@@ -4,7 +4,7 @@
 
             <div class="section-title">
                 <h2>Prendi un appuntamento</h2>
-                <p>Attraverso questo form potrai prendere un appuntamento con il dottore.</p>
+                <p>Compila questi campi per prenotare un appuntamento con un dottore</p>
             </div>
 
             <form role="form" class="php-email-form" @submit.prevent="postMex()">
@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group mt-2">
-                            <textarea class="form-control" name="message" rows="5" placeholder="Messagio " required
+                            <textarea class="form-control" name="message" rows="5" placeholder="Prenota appuntamento " required
                                 minlength="5" v-model="message"></textarea>
                         </div>
                     </div>
