@@ -63,7 +63,7 @@
                 <span @click="isVisible = false" class="cp"> X </span>
             </div>
             <div v-if="isVisibleSuccess" class="alert alert-success mt-3 d-flex justify-content-between"><span>
-                    Recensione inviata
+                    Recensione inviata <i class="fa-solid fa-keyboard fa-bounce" style="color: #009dff;"></i>
                 </span>
                 <span @click="isVisibleSuccess = false" class="cp"> X </span>
             </div>

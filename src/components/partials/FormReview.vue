@@ -91,7 +91,7 @@
                 <span @click="isVisibleSuccessText = false" class="cp"> X </span>
             </div>
             <div v-else-if="isVisibleSuccessStar" class="alert alert-success mt-3 d-flex justify-content-between"><span>
-                    Valutazione inviata <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    Valutazione inviata <i class="fa-solid fa-star fa-bounce" style="color: #FFD43B;"></i>
                 </span>
                 <span @click="isVisibleSuccessStar = false" class="cp"> X </span>
             </div>
