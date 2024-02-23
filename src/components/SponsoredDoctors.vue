@@ -3,7 +3,8 @@
     <section id="card-doctors" class="doctors">
         <div class="container">
             <div class="text-start pb-3">
-                <h2 v-if="!this.store.call">I professioni che ti raccomandiamo</h2>
+                <h2 v-if="!this.store.call">I professionisti che ti raccomandiamo</h2>
+                
             </div>
 
             <!-- dottori ricerca -->
@@ -13,8 +14,8 @@
             <!-- dottori sponsor, home -->
 
             <!-- v-for per sponsorizzare i medici -->
-            <!-- <div v-if="!this.store.call" class="row">
-
+            <div v-if="!this.store.call" class="row">
+                
                 <div v-for="item in  this.store.allDoctors " class="col-lg-4 mt-3">
                     <router-link :to="{ name: 'detail-doctor', params: { id: item.id } }" v-if="item.visible">
                         <div class="member d-flex align-items-start">
@@ -29,10 +30,8 @@
                                                 specialization.name }}</li>
                                     </ul>
                                 </div>
-                                <div class="d-flex flex-row justify-content-start gap-3 align-content-center">
-
-                                    <h6 style="color: green">sponsorizzato</h6>
-
+                                <div v-if="item.visible" class="d-flex flex-row justify-content-start gap-3 align-content-center">
+                                    <span class="badge rounded-pill text-bg-success">Consigliato!</span>
                                 </div>
                             </div>
 
@@ -40,7 +39,7 @@
                     </router-link>
                 </div>
 
-            </div> -->
+            </div> 
 
 
             <div class="row" v-if="this.store.call">
@@ -64,8 +63,12 @@
                                     <div class="d-flex flex-row justify-content-start align-content-center gap-2">
                                         <i class="fa-solid fa-pen"></i>
                                         <span>{{ item.total_reviews }}</span>
-
                                     </div>
+                                </div>
+                                <div v-if="item.visible" class="d-flex flex-row justify-content-start gap-3 align-content-center">
+
+                                    <span class="badge rounded-pill text-bg-success"><i class="fa-solid fa-certificate"></i>Consigliato!</span>
+
                                 </div>
                             </div>
 
@@ -85,7 +88,8 @@ export default {
     name: "CardDoctors",
     data() {
         return {
-            store
+            store,
+            
         }
     },
     methods: {

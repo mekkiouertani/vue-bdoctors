@@ -57,7 +57,7 @@
                     <button class="btn btn-primary" :class="store.selectedSpecializations ? ' ' : ' disabled'"
                         type="submit">Cerca</button>
                     <button v-if="store.selectedSpecializations" class="btn  btn-success mx-3 rounded-pill py-2 px-4"
-                        type="reset" @click="resetSearch">Reset</button>
+                        type="reset" @click="resetSearch">Annulla</button>
                 </div>
             </form>
         </div>
@@ -89,23 +89,25 @@ export default {
         }
     },
     methods: {
-        originalFilteredSpecializations() {
+      /*   originalFilteredSpecializations() {
             if (this.store.selectedSpecializations) {
                 axios.get(`${this.store.apiUrl}/accounts`, { params: { specialization: this.store.selectedSpecializations } })
                     .then((res) => {
-                        this.store.filteredDoctor = res.data.results;
+                        this.store.filteredDoctor = this.store.allDoctors.concat(res.data.results);
+                        
                         console.log(`filtered Doctor`, this.store.filteredDoctor);
                     })
                     .catch((err) => {
                         console.log(err);
                     });
             }
-        },
+        }, */
         filteredSpecializations() {
             if (this.store.selectedSpecializations) {
                 axios.get(`${this.store.apiUrl}/accountfilter`, { params: { s: this.store.selectedSpecializations, mar: this.averageVote, order: this.total_reviews } })
                     .then((res) => {
-                        this.store.filteredDoctor = res.data.results;
+                        let filterdocs = res.data.results;
+                        this.store.filteredDoctor = filterdocs.sort((a, b) => b.visible - a.visible);
                         console.log(`filtered Doctor`, this.store.filteredDoctor);
                     })
                     .catch((err) => {

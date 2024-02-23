@@ -72,20 +72,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use '../../assets/style/partials/variables.scss' as *;
 .member {
     height: 100%;
     margin-top: 3rem;
+    background-color: $light-color !important;
 }
 
 .pic {
+    border: 2px solid $primary-color;
     width: 150px !important;
-    height: 150px !important;
     overflow: hidden;
-
+    aspect-ratio: 1 / 1 !important;
     img {
         width: 100% !important;
         height: 100% !important;
-        aspect-ratio: 1/1;
+        object-fit: cover !important;
 
     }
 }
