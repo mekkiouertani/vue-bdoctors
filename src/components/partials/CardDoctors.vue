@@ -39,6 +39,9 @@
 
                                     </div>
                                 </div>
+                                <div v-if="item.visible" class="d-flex flex-row justify-content-start gap-3 align-content-center">
+                                    <span class="badge rounded-pill text-bg-success"><i class="fa-solid fa-certificate"></i>Consigliato!</span>
+                                </div>
                             </div>
 
                         </div>
