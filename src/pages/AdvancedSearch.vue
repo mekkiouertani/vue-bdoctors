@@ -4,7 +4,7 @@
         <div class="container">
 
             <div class="section-title">
-                <h2>Cerca lo specialista che fa al caso tuo!</h2>
+                <h2>Cerca il medico che fa al caso tuo!</h2>
                 <p>Potrai cercare il medico con le competenze che cerchi e con le recensioni migliori.</p>
             </div>
 
@@ -12,7 +12,7 @@
                 <div class="row">
                     <!-- SPECIALIZATIONS -->
                     <div class="col-md-4 form-group mt-3">
-                        <label for="specialization pb-2">Filtra per specializzazione</label>
+                        <label for="specialization pb-2">Ordina per specializzazione</label>
                         <select name="specialization" id="specialization" class="form-select mt-2"
                             v-model="store.selectedSpecializations">
                             <option value="">Seleziona Specializzazione</option>
@@ -25,9 +25,9 @@
                     </div>
                     <!-- VOTE -->
                     <div class="col-md-4 form-group mt-3" v-if="store.selectedSpecializations">
-                        <label for="vote">Filtra per voto</label>
+                        <label for="vote">Ordina per voto</label>
                         <select name="vote" id="vote" class="form-select mt-2" v-model="averageVote">
-                            <option value="0">Filtra per Valutazione</option>
+                            <option value="0">Seleziona Valutazione</option>
                             <option value="1">&#x2605;</option>
                             <option value="2">&#x2605; &#x2605;</option>
                             <option value="3">&#x2605; &#x2605; &#x2605;</option>
@@ -48,9 +48,9 @@
                 </div>
 
                 <div class="mb-3">
-                    <div class="loading">Loading</div>
+                    <div class="loading">Caricamento...</div>
                     <div class="error-message"></div>
-                    <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+                    <div class="sent-message">La tua richiesta di appuntamento è stata inviata con successo. Grazie!</div>
                 </div>
                 <div class="d-flex "
                     :class="store.selectedSpecializations ? 'justify-content-center' : 'justify-content-start'">

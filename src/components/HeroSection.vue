@@ -2,7 +2,7 @@
     <section id="hero" class="d-flex align-items-center">
         <div class="container">
             <h1>Benvenuto su BDoctors</h1>
-            <h2>Un team di specialisti competetenti al tuo servizio.</h2>
+            <h2>Un team di medici competenti al tuo servizio.</h2>
             <form role="form" class="php-email-form" @submit.prevent="filteredSpecializations">
 
                 <div class="row">

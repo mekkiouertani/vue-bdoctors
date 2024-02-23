@@ -33,7 +33,7 @@ export default {
                     name: "home",
                 },
                 {
-                    label: "Cerca il tuo Specialista",
+                    label: "Cerca il tuo Medico",
                     name: "search",
                 },
 
