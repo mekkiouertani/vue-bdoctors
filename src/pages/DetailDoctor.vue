@@ -68,13 +68,11 @@
           <div class="tab-content">
             <!-- form messaggi -->
             <div class="tab-pane active show" id="message-1">
-              <h2>Messaggi</h2>
               <FormAppointments />
             </div>
 
             <!-- form recensioni -->
             <div class="tab-pane fade" id="reviews-2">
-              <h2>Recensioni</h2>
               <FormReview />
             </div>
           </div>

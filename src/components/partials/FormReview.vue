@@ -4,7 +4,7 @@
 
             <div class="section-title">
                 <h2>Recensione e valutazione</h2>
-                <p>Scrivi una recensione <i class="fa-solid fa-pen"></i> o lascia una valutazione <i
+                <p>Scrivi una recensione <i class="fa-solid fa-keyboard" ></i> o lascia una valutazione <i
                         class="fa-solid fa-star" style="color: #FFD43B;"></i> <br> o inseriscile entrambe compilando tutti i
                     campi del form. </p>
             </div>
@@ -86,7 +86,7 @@
 
 
             <div v-else-if="isVisibleSuccessText" class="alert alert-success mt-3 d-flex justify-content-between"><span>
-                    Recensione inviata <i class="fa-solid fa-pen"></i>
+                    Recensione inviata <i class="fa-solid fa-keyboard fa-bounce"></i>
                 </span>
                 <span @click="isVisibleSuccessText = false" class="cp"> X </span>
             </div>
