@@ -60,37 +60,33 @@
                             <input type="hidden" name="rating" id="rating-value">
                         </div>
                     </div>
-
-                    <!-- <div class="validate"></div>-->
                 </div>
-
-
 
                 <div class="text-center mt-5">
                     <button type="submit">Invia</button>
                 </div>
             </form>
 
-            <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between"><span>
-                    Inserisci tutti i campi testuali del form prima di
-                    inviarlo
+            <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between">
+                <span>
+                    Inserisci tutti i campi testuali del form prima di inviarlo
                 </span>
                 <span @click="isVisible = false" class="cp"> X </span>
             </div>
-            <div v-if="isVisibleSuccessText && isVisibleSuccessStar"
-                class="alert alert-success mt-3 d-flex justify-content-between"><span>
+            <div v-if="isVisibleSuccessText && isVisibleSuccessStar" class="alert alert-success mt-3 d-flex justify-content-between">
+                <span>
                     Recensione completa inviata
                 </span>
                 <span @click="isVisibleSuccessText = false; isVisibleSuccessStar = false" class=" cp"> X </span>
             </div>
-
-
-            <div v-else-if="isVisibleSuccessText" class="alert alert-success mt-3 d-flex justify-content-between"><span>
+            <div v-else-if="isVisibleSuccessText" class="alert alert-success mt-3 d-flex justify-content-between">
+                <span>
                     Recensione inviata <i class="fa-solid fa-keyboard fa-bounce"></i>
                 </span>
                 <span @click="isVisibleSuccessText = false" class="cp"> X </span>
             </div>
-            <div v-else-if="isVisibleSuccessStar" class="alert alert-success mt-3 d-flex justify-content-between"><span>
+            <div v-else-if="isVisibleSuccessStar" class="alert alert-success mt-3 d-flex justify-content-between">
+                <span>
                     Valutazione inviata <i class="fa-solid fa-star fa-bounce" style="color: #FFD43B;"></i>
                 </span>
                 <span @click="isVisibleSuccessStar = false" class="cp"> X </span>
@@ -113,14 +109,9 @@ export default {
             title: '',
             message: '',
             nameM: '',
-
             isVisible: false,
             isVisibleSuccessText: false,
             isVisibleSuccessStar: false,
-
-
-
-
         }
     },
     methods: {
@@ -145,7 +136,6 @@ export default {
                 star.style.color = ratingValue <= this.currentRating ? '#ffc107' : '#ddd';
             });
         },
-
         rate(event) {
             const rating = parseInt(event.currentTarget.getAttribute('data-value'));
             this.currentRating = rating;
@@ -155,66 +145,53 @@ export default {
             });
             document.getElementById('rating-value').value = rating;
         },
-
-        // chiamata messaggio
         postReview() {
             this.isVisibleSuccessText = false;
             this.isVisibleSuccessStar = false;
-            // Verifica se i campi della recensione sono stati compilati
+            
             const isReviewFilled = this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim();
-
-            // Se i campi della recensione sono compilati, effettua la chiamata per inviare la recensione
+            
             if (isReviewFilled) {
                 axios.post(`${this.store.apiUrl}/reviews`, {
-
                     account_id: this.$route.params.id,
                     content: this.message,
                     title: this.title,
                     name: this.nameM,
                     email: this.email
                 })
-                    .then(() => {
-                        // Pulisci i campi dopo l'invio
-                        this.email = '';
-                        this.nameM = '';
-                        this.title = '';
-                        this.message = '';
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-                    .finally(() => {
-                        console.log('RECENSIONE');
-                        this.isVisibleSuccessText = true;
-                    });
-
+                .then(() => {
+                    this.email = '';
+                    this.nameM = '';
+                    this.title = '';
+                    this.message = '';
+                    this.isVisibleSuccessText = true;
+                    setTimeout(() => {
+                        this.isVisibleSuccessText = false;
+                    }, 3000); // Rimuovi l'alert dopo 3 secondi
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
             }
 
-            // Verifica se è stata selezionata una valutazione
             if (this.currentRating !== 0) {
                 axios.post(`${this.store.apiUrl}/votes`, { account_id: this.$route.params.id, rating_id: this.currentRating })
-                    .then((res) => {
-                        // console.log('Chiamata valutazione effettuata' + res);
-                        // Resetta la valutazione dopo l'invio
-                        this.currentRating = 0;
-                        this.resetStars();
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    })
-                    .finally(() => {
-                        console.log('STELLE');
-                        this.isVisibleSuccessStar = true;
-                    });
+                .then((res) => {
+                    this.currentRating = 0;
+                    this.resetStars();
+                    this.isVisibleSuccessStar = true;
+                    setTimeout(() => {
+                        this.isVisibleSuccessStar = false;
+                    }, 3000); // Rimuovi l'alert dopo 3 secondi
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
             } else if (!isReviewFilled) {
                 this.isVisible = true;
                 console.log('Uno o più campi sono vuoti o non è stata selezionata alcuna valutazione.');
             }
         }
-
-
-
-
     },
     mounted() {
         this.setupRatingStars();
@@ -242,4 +219,3 @@ button {
     border-radius: 50px;
 }
 </style>
-

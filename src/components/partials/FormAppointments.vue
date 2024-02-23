@@ -90,34 +90,35 @@ export default {
     methods: {
 
         postMex() {
-            console.log('chiamata');
-            if (this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim()) {
-                axios.post(`${this.store.apiUrl}/messages`, {
-                    account_id: this.$route.params.id,
-                    content: this.message,
-                    title: this.title,
-                    name: this.nameM,
-                    email: this.email
-                })
-                    .then(() => {
-                        this.email = '';
-                        this.nameM = '';
-                        this.title = '';
-                        this.message = '';
-                    })
-                    .catch((err) => {
-                        console.log(err);
+    console.log('chiamata');
+    if (this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim()) {
+        axios.post(`${this.store.apiUrl}/messages`, {
+            account_id: this.$route.params.id,
+            content: this.message,
+            title: this.title,
+            name: this.nameM,
+            email: this.email
+        })
+            .then(() => {
+                this.email = '';
+                this.nameM = '';
+                this.title = '';
+                this.message = '';
+                this.isVisibleSuccess = true;
+                setTimeout(() => {
+                    this.isVisibleSuccess = false;
+                }, 3000); // Rimuovi l'alert dopo 3 secondi
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    } else {
+        console.log('Uno o più campi sono vuoti.');
+        this.isVisible = true;
+    }
+},
 
-                    })
-                    .finally(() => {
-                        console.log('chiamata effettuata');
-                        this.isVisibleSuccess = true;
-                    });
-            } else {
-                console.log('Uno o più campi sono vuoti.');
-                this.isVisible = true;
-            }
-        }
+        
         // mounted() {
         //     this.postMex();
         // }
