@@ -10,5 +10,4 @@ export const store = reactive({
   selectedSpecializations: "",
   filteredDoctor: [],
   call: false,
-
 });

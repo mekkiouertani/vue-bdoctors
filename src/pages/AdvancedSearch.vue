@@ -62,6 +62,7 @@
             </form>
         </div>
     </section>
+
     <CardDoctors />
 </template>
   
@@ -70,7 +71,6 @@ import axios from 'axios';
 import { store } from '../data/store.js';
 import TopBar from '@/components/TopBar.vue';
 import CardDoctors from '@/components/partials/CardDoctors.vue';
-
 export default {
     name: "AdvancedSearch",
     components: { TopBar, CardDoctors },
@@ -89,19 +89,19 @@ export default {
         }
     },
     methods: {
-      /*   originalFilteredSpecializations() {
-            if (this.store.selectedSpecializations) {
-                axios.get(`${this.store.apiUrl}/accounts`, { params: { specialization: this.store.selectedSpecializations } })
-                    .then((res) => {
-                        this.store.filteredDoctor = this.store.allDoctors.concat(res.data.results);
-                        
-                        console.log(`filtered Doctor`, this.store.filteredDoctor);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            }
-        }, */
+        /*   originalFilteredSpecializations() {
+              if (this.store.selectedSpecializations) {
+                  axios.get(`${this.store.apiUrl}/accounts`, { params: { specialization: this.store.selectedSpecializations } })
+                      .then((res) => {
+                          this.store.filteredDoctor = this.store.allDoctors.concat(res.data.results);
+                          
+                          console.log(`filtered Doctor`, this.store.filteredDoctor);
+                      })
+                      .catch((err) => {
+                          console.log(err);
+                      });
+              }
+          }, */
         filteredSpecializations() {
             if (this.store.selectedSpecializations) {
                 axios.get(`${this.store.apiUrl}/accountfilter`, { params: { s: this.store.selectedSpecializations, mar: this.averageVote, order: this.total_reviews } })
