@@ -8,13 +8,13 @@
                 <h2 v-if="store.filteredDoctor.length == 0 && store.call">Nessun medico trovato</h2>
 
             </div>
-            <div class="row">
+            <div class="row g-4">
 
-                <div class="col-12 col-md-8  col-xl-4 mb-0 " v-for=" item  in   this.store.filteredDoctor  ">
+                <div class="col-12 col-md-6 col-lg-6 col-xl-4 " v-for=" item  in   this.store.filteredDoctor  ">
                     <router-link :to="{ name: 'detail-doctor', params: { id: item.id } }">
                         <div class="member border position-relative" :class="{ 'spons-border': item.visible }">
 
-                            <div class="d-flex flex-column justify-content-between">
+                            <div class="d-flex flex-column justify-content-between border-bottom pb-3">
                                 <div class="d-flex justify-content-between align-items-start  w-100 ">
                                     <div class="pic">
                                         <img :src="`${store.basePathImage}${item.image}`" class="img-fluid" alt="...">
@@ -44,7 +44,6 @@
                                                 class="d-flex flex-row align-items-center   justify-content-end mt-2 align-content-center gap-2">
                                                 <i class=" fa-solid fa-book-open"></i>
                                                 <div class="text-black align-middle">{{ item.total_reviews }} Recensioni
-                                                    totali
                                                 </div>
                                             </div>
                                         </div>
@@ -55,10 +54,16 @@
                             <div>
 
                                 <!-- CONSIGLIATO -->
-                                <div v-if="item.visible" class="fs-5 gap-3 mt-3 w-100 text-center">
-                                    <div class="badge rounded-pill text-bg-success"><i
-                                            class="fs-3 align-middle px-1  fa-solid fa-check"></i><small
-                                            class="px-2 fs-5 align-middle ">Consigliato!</small>
+                                <div v-if="item.visible" class=" gap-3 mt-3 w-100 text-center">
+                                    <div class="badge rounded-pill text-success border border-success">
+                                        <i class="fa-solid fa-circle-check fs-4 align-middle"></i><small
+                                            class="px-2 fs-6 align-middle ">Sponsorizzato</small>
+                                    </div>
+                                    <!-- <div class="position-absolute pt-2">Visita il profilo</div> -->
+                                </div>
+                                <div v-if="!item.visible" class=" gap-3 w-100 text-center">
+                                    <div class="mt-1">
+                                        Visita il profilo
                                     </div>
                                 </div>
                             </div>
@@ -103,8 +108,8 @@ export default {
 }
 
 .member {
-    height: 300px;
-    margin-top: 3rem;
+    max-height: 400px;
+    aspect-ratio: 4 / 3;
     background-color: $light-color !important;
 
 }
@@ -126,6 +131,20 @@ export default {
         object-fit: cover !important;
         object-position: center;
 
+    }
+}
+
+@media (max-width: 768px) {
+    .member {
+        width: 100% !important;
+    }
+
+    .member-info {
+        height: 150px !important;
+    }
+
+    .pic {
+        width: 200px !important;
     }
 }
 </style>
