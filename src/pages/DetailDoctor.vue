@@ -9,15 +9,59 @@
     <div class="container">
       <div class="row">
         <!-- Colonna Informazioni -->
-        <div class="col-12 pt-3 pb-3" :class="doctor.cv ? 'col-md-6' : ''">
-          <div class="card h-100"
+        <div class="col-12  pt-3 pb-3" :class="doctor.cv ? 'col-md-6' : ''">
+
+        </div>
+
+        <hr>
+
+        <!-- MESSAGGI E RECENSIONI -->
+        <!-- parte sinistra -->
+        <div class="row gy-4 mt-4 ">
+          <div class="col-md-3 border-end">
+            <ul class="nav nav-tabs flex-column">
+              <li class="nav-item">
+                <a class="nav-link mybtn active" data-bs-toggle="tab" href="#message-1">Prenota un appuntamento</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link mybtn" data-bs-toggle="tab" href="#reviews-2">Scrivi una recensione</a>
+              </li>
+            </ul>
+          </div>
+          <!-- parte destra -->
+          <div class="col-md-9">
+            <div class="tab-content">
+              <!-- form messaggi -->
+              <div class="tab-pane active show" id="message-1">
+                <FormAppointments />
+              </div>
+
+              <!-- form recensioni -->
+              <div class="tab-pane fade" id="reviews-2">
+                <FormReview />
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+    </div>
+  </div>
+</template>
+
+
+<!-- <div class="card h-100"
             :class="!doctor.cv ? 'd-flex flex-row justify-content-between align-contents-start' : ''">
             <div class="card-body mt-2">
               <h3 class="title ">INFORMAZIONI</h3>
               <p class="p-1"><strong>Nome:</strong> {{ doctor.user.name }}</p>
               <p class="p-1"><strong>Cognome:</strong> {{ doctor.user.surname }}</p>
             </div>
-            <!-- Colonna Specializzazione -->
+            
             <div class="card-body mt-2">
               <h3 class="title ">SPECIALIZZAZIONE</h3>
               <div class="p-1 d-flex ">
@@ -28,7 +72,7 @@
                 </ul>
               </div>
             </div>
-            <!-- Colonna Contatti -->
+            Colonna Contatti 
             <div class="card-body mt-2">
               <h3 class="title ">CONTATTI</h3>
               <p class="p-1"><strong>Indirizzo:</strong> {{ doctor.address }}</p>
@@ -37,7 +81,7 @@
             </div>
           </div>
         </div>
-        <!-- Colonna CV -->
+        colonna cv
         <div v-if="doctor.cv" class="col-12 col-md-6 pt-3 pb-3">
           <div class="card h-100  ">
             <div class="card-body ">
@@ -46,46 +90,7 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <hr>
-
-      <!-- MESSAGGI E RECENSIONI -->
-      <!-- parte sinistra -->
-      <div class="row gy-4 mt-4 ">
-        <div class="col-md-3 border-end">
-          <ul class="nav nav-tabs flex-column">
-            <li class="nav-item">
-              <a class="nav-link mybtn active" data-bs-toggle="tab" href="#message-1">Prenota un appuntamento</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link mybtn" data-bs-toggle="tab" href="#reviews-2">Scrivi una recensione</a>
-            </li>
-          </ul>
-        </div>
-        <!-- parte destra -->
-        <div class="col-md-9">
-          <div class="tab-content">
-            <!-- form messaggi -->
-            <div class="tab-pane active show" id="message-1">
-              <FormAppointments />
-            </div>
-
-            <!-- form recensioni -->
-            <div class="tab-pane fade" id="reviews-2">
-              <FormReview />
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-    </div>
-
-
-  </div>
-</template>
+      </div> -->
 
 <script>
 import { store } from '@/data/store';

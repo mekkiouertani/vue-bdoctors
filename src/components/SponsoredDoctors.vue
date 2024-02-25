@@ -16,12 +16,15 @@
                                     <img :src="`${store.basePathImage}${item.image}`" class="img-fluid" alt="...">
                                 </div>
                                 <div class="member-info">
-                                    <h4>{{ item.user.name }} {{ item.user.surname }}</h4>
-                                    <div class="text-end">Specializzato in: <ul class="list-unstyled">
-                                            <li class="text-black text-end" v-for="specialization in item.specializations"
-                                                :key="specialization.id">{{
-                                                    specialization.name }}</li>
-                                        </ul>
+                                    <div class="member-inf2">
+                                        <h4>{{ item.user.name }} {{ item.user.surname }}</h4>
+                                        <div class="text-end">Specializzato in: <ul class="list-unstyled">
+                                                <li class="text-black text-end"
+                                                    v-for="specialization in item.specializations" :key="specialization.id">
+                                                    {{
+                                                        specialization.name }}</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="d-flex flex-row justify-content-start gap-3 align-content-center">
 
@@ -140,6 +143,10 @@ export default {
 
 <style lang="scss" scoped>
 @use './../assets//style/partials/variables.scss' as *;
+
+.member-inf2 {
+    height: 100px;
+}
 
 .carousel {
     margin-top: -50px !important;
