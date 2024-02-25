@@ -20,10 +20,12 @@
                         </div>
 
                         <div class="text-center">
-                            <button class="btn btn-primary" type="submit">
-                                <router-link :to="{ name: 'search' }" class="nav-link" active-class="active">
-                                    Cerca il tuo medico
-                                </router-link></button>
+
+                            <router-link :to="{ name: 'search' }" class="btn btn-primary"
+                                :class="{ disabled: !store.selectedSpecializations }" type="submit">
+                                Cerca
+                            </router-link>
+
 
                         </div>
 
@@ -55,6 +57,7 @@ export default {
     },
     methods: {
         filteredSpecializations() {
+            this.store.isLoading = true;
             if (this.store.selectedSpecializations) {
                 axios.get(`${this.store.apiUrl}/accountfilter`, { params: { s: this.store.selectedSpecializations, order: this.total_reviews } })
                     .then((res) => {
@@ -63,11 +66,18 @@ export default {
                     })
                     .catch((err) => {
                         console.log(err);
+                    }).finally(() => {
+                        this.store.isLoading = false; // Imposta isLoading su false quando la ricerca è completata
                     });
+            } else {
+                this.store.isLoading = false;
             }
 
             this.store.call = true;
         },
+    },
+    mounted() {
+        this.store.selectedSpecializations = '';
     }
 
 }
