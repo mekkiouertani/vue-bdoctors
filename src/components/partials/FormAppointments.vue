@@ -1,14 +1,24 @@
 <template>
     <section id="appointment" class="appointment section-bg">
         <div class="container">
-
+            <!-- ALERT -->
+            <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between"><span>
+                    Inserisci tutti i campi testuali del form prima di
+                    inviarlo
+                </span>
+                <span @click="isVisible = false" class="cp"> X </span>
+            </div>
+            <div v-if="isVisibleSuccess" class="alert alert-success mt-3 d-flex justify-content-between"><span>
+                    Messaggio inviato <i class="fa-solid fa-keyboard fa-bounce"></i>
+                </span>
+                <span @click="isVisibleSuccess = false" class="cp"> X </span>
+            </div>
             <div class="section-title">
                 <h2>Prendi un appuntamento</h2>
                 <p>Compila questi campi per prenotare un appuntamento con un dottore</p>
             </div>
 
             <form role="form" class="php-email-form" @submit.prevent="postMex()">
-
 
 
 
@@ -39,8 +49,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group mt-2">
-                            <textarea class="form-control" name="message" rows="5" placeholder="Prenota appuntamento " required
-                                minlength="5" v-model="message"></textarea>
+                            <textarea class="form-control" name="message" rows="5" placeholder="Prenota appuntamento "
+                                required minlength="5" v-model="message"></textarea>
                         </div>
                     </div>
                     <div class="validate"></div>
@@ -55,18 +65,7 @@
                 </div>
                 <div class="text-center"><button type="submit">Prendi un appuntamento!</button></div>
             </form>
-            <!-- ALERT -->
-            <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between"><span>
-                    Inserisci tutti i campi testuali del form prima di
-                    inviarlo
-                </span>
-                <span @click="isVisible = false" class="cp"> X </span>
-            </div>
-            <div v-if="isVisibleSuccess" class="alert alert-success mt-3 d-flex justify-content-between"><span>
-                    Messaggio inviato <i class="fa-solid fa-keyboard fa-bounce" ></i>
-                </span>
-                <span @click="isVisibleSuccess = false" class="cp"> X </span>
-            </div>
+
         </div>
     </section>
 </template>
@@ -90,35 +89,35 @@ export default {
     methods: {
 
         postMex() {
-    console.log('chiamata');
-    if (this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim()) {
-        axios.post(`${this.store.apiUrl}/messages`, {
-            account_id: this.$route.params.id,
-            content: this.message,
-            title: this.title,
-            name: this.nameM,
-            email: this.email
-        })
-            .then(() => {
-                this.email = '';
-                this.nameM = '';
-                this.title = '';
-                this.message = '';
-                this.isVisibleSuccess = true;
-                setTimeout(() => {
-                    this.isVisibleSuccess = false;
-                }, 3000); // Rimuovi l'alert dopo 3 secondi
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    } else {
-        console.log('Uno o più campi sono vuoti.');
-        this.isVisible = true;
-    }
-},
+            console.log('chiamata');
+            if (this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim()) {
+                axios.post(`${this.store.apiUrl}/messages`, {
+                    account_id: this.$route.params.id,
+                    content: this.message,
+                    title: this.title,
+                    name: this.nameM,
+                    email: this.email
+                })
+                    .then(() => {
+                        this.email = '';
+                        this.nameM = '';
+                        this.title = '';
+                        this.message = '';
+                        this.isVisibleSuccess = true;
+                        setTimeout(() => {
+                            this.isVisibleSuccess = false;
+                        }, 3000); // Rimuovi l'alert dopo 3 secondi
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            } else {
+                console.log('Uno o più campi sono vuoti.');
+                this.isVisible = true;
+            }
+        },
 
-        
+
         // mounted() {
         //     this.postMex();
         // }
