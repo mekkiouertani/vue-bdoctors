@@ -8,9 +8,9 @@
                 <h2 v-if="store.filteredDoctor.length == 0 && store.call">Nessun medico trovato</h2>
 
             </div>
-            <div class="row g-4">
+            <div class="row g-3 gy-3 gx-md-5">
 
-                <div class="col-12 col-md-6 col-lg-6 col-xl-4 " v-for=" item  in   this.store.filteredDoctor  ">
+                <div class="col-12 col-md-7 col-lg-5 col-xl-5 col-xxl-4" v-for=" item  in   this.store.filteredDoctor  ">
                     <router-link :to="{ name: 'detail-doctor', params: { id: item.id } }">
                         <div class="member border position-relative" :class="{ 'spons-border': item.visible }">
 
@@ -54,8 +54,8 @@
                             <div>
 
                                 <!-- CONSIGLIATO -->
-                                <div v-if="item.visible" class=" gap-3 mt-3 w-100 text-center">
-                                    <div class="badge rounded-pill text-success border border-success">
+                                <div v-if="item.visible" class=" gap-3 mt-2  w-100 text-center">
+                                    <div class="badge rounded-pill text-success border  border-success">
                                         <i class="fa-solid fa-circle-check fs-4 align-middle"></i><small
                                             class="px-2 fs-6 align-middle ">Sponsorizzato</small>
                                     </div>
@@ -109,6 +109,7 @@ export default {
 
 .member {
     max-height: 400px;
+    min-height: 300px;
     aspect-ratio: 4 / 3;
     background-color: $light-color !important;
 
@@ -137,11 +138,19 @@ export default {
 @media (max-width: 768px) {
     .member {
         width: 100% !important;
+        aspect-ratio: 4 / 4 !important;
     }
 
     .member-info {
         height: 150px !important;
     }
+
+    .pic {
+        width: 200px !important;
+    }
+}
+
+@media (max-width: 528px) {
 
     .pic {
         width: 200px !important;

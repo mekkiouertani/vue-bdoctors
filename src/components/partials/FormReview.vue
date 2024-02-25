@@ -1,10 +1,36 @@
 <template>
     <section id="review" class=" section-bg">
         <div class="container">
-
+            <!-- ALERT -->
+            <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between">
+                <span>
+                    Inserisci tutti i campi testuali del form prima di inviarlo
+                </span>
+                <span @click="isVisible = false" class="cp"> X </span>
+            </div>
+            <div v-if="isVisibleSuccessText && isVisibleSuccessStar"
+                class="alert alert-success mt-3 d-flex justify-content-between">
+                <span>
+                    Recensione completa inviata
+                </span>
+                <span @click="isVisibleSuccessText = false; isVisibleSuccessStar = false" class=" cp"> X </span>
+            </div>
+            <div v-else-if="isVisibleSuccessText" class="alert alert-success mt-3 d-flex justify-content-between">
+                <span>
+                    Recensione inviata <i class="fa-solid fa-keyboard fa-bounce"></i>
+                </span>
+                <span @click="isVisibleSuccessText = false" class="cp"> X </span>
+            </div>
+            <div v-else-if="isVisibleSuccessStar" class="alert alert-success mt-3 d-flex justify-content-between">
+                <span>
+                    Valutazione inviata <i class="fa-solid fa-star fa-bounce" style="color: #FFD43B;"></i>
+                </span>
+                <span @click="isVisibleSuccessStar = false" class="cp"> X </span>
+            </div>
+            <!--  -->
             <div class="section-title">
                 <h2>Recensione e valutazione</h2>
-                <p>Scrivi una recensione <i class="fa-solid fa-keyboard" ></i> o lascia una valutazione <i
+                <p>Scrivi una recensione <i class="fa-solid fa-keyboard"></i> o lascia una valutazione <i
                         class="fa-solid fa-star" style="color: #FFD43B;"></i> <br> o inseriscile entrambe compilando tutti i
                     campi del form. </p>
             </div>
@@ -67,30 +93,7 @@
                 </div>
             </form>
 
-            <div v-if="isVisible" class="alert alert-danger mt-3 d-flex justify-content-between">
-                <span>
-                    Inserisci tutti i campi testuali del form prima di inviarlo
-                </span>
-                <span @click="isVisible = false" class="cp"> X </span>
-            </div>
-            <div v-if="isVisibleSuccessText && isVisibleSuccessStar" class="alert alert-success mt-3 d-flex justify-content-between">
-                <span>
-                    Recensione completa inviata
-                </span>
-                <span @click="isVisibleSuccessText = false; isVisibleSuccessStar = false" class=" cp"> X </span>
-            </div>
-            <div v-else-if="isVisibleSuccessText" class="alert alert-success mt-3 d-flex justify-content-between">
-                <span>
-                    Recensione inviata <i class="fa-solid fa-keyboard fa-bounce"></i>
-                </span>
-                <span @click="isVisibleSuccessText = false" class="cp"> X </span>
-            </div>
-            <div v-else-if="isVisibleSuccessStar" class="alert alert-success mt-3 d-flex justify-content-between">
-                <span>
-                    Valutazione inviata <i class="fa-solid fa-star fa-bounce" style="color: #FFD43B;"></i>
-                </span>
-                <span @click="isVisibleSuccessStar = false" class="cp"> X </span>
-            </div>
+
         </div>
     </section>
 </template>
@@ -148,9 +151,9 @@ export default {
         postReview() {
             this.isVisibleSuccessText = false;
             this.isVisibleSuccessStar = false;
-            
+
             const isReviewFilled = this.email.trim() && this.nameM.trim() && this.title.trim() && this.message.trim();
-            
+
             if (isReviewFilled) {
                 axios.post(`${this.store.apiUrl}/reviews`, {
                     account_id: this.$route.params.id,
@@ -159,34 +162,34 @@ export default {
                     name: this.nameM,
                     email: this.email
                 })
-                .then(() => {
-                    this.email = '';
-                    this.nameM = '';
-                    this.title = '';
-                    this.message = '';
-                    this.isVisibleSuccessText = true;
-                    setTimeout(() => {
-                        this.isVisibleSuccessText = false;
-                    }, 3000); // Rimuovi l'alert dopo 3 secondi
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+                    .then(() => {
+                        this.email = '';
+                        this.nameM = '';
+                        this.title = '';
+                        this.message = '';
+                        this.isVisibleSuccessText = true;
+                        setTimeout(() => {
+                            this.isVisibleSuccessText = false;
+                        }, 3000); // Rimuovi l'alert dopo 3 secondi
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             }
 
             if (this.currentRating !== 0) {
                 axios.post(`${this.store.apiUrl}/votes`, { account_id: this.$route.params.id, rating_id: this.currentRating })
-                .then((res) => {
-                    this.currentRating = 0;
-                    this.resetStars();
-                    this.isVisibleSuccessStar = true;
-                    setTimeout(() => {
-                        this.isVisibleSuccessStar = false;
-                    }, 3000); // Rimuovi l'alert dopo 3 secondi
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+                    .then((res) => {
+                        this.currentRating = 0;
+                        this.resetStars();
+                        this.isVisibleSuccessStar = true;
+                        setTimeout(() => {
+                            this.isVisibleSuccessStar = false;
+                        }, 3000); // Rimuovi l'alert dopo 3 secondi
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             } else if (!isReviewFilled) {
                 this.isVisible = true;
                 console.log('Uno o più campi sono vuoti o non è stata selezionata alcuna valutazione.');
