@@ -44,7 +44,8 @@
 
 
       <!-- CV -->
-      <button class="btn btn-primary mb-2" @click="toggleSection">Esplora il mio percorso <i
+
+      <button v-if="doctor.cv" class="btn btn-primary mb-2" @click="toggleSection">Esplora il mio percorso <i
           class="fa-solid fa-user-doctor"></i></button>
       <div v-if="isVisibleCv">
         <div class="card h-100  ">
